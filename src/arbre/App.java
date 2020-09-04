@@ -7,9 +7,10 @@ public class App {
 
 	public static void main(String[] args) {
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e1) {
+			String look = UIManager.getSystemLookAndFeelClassName();
+			if (look.equals("com.sun.java.swing.plaf.windows.WindowsLookAndfeel"))
+				UIManager.setLookAndFeel(UIManager.createLookAndFeel("look"));
+		} catch (UnsupportedLookAndFeelException e1) {
 			e1.printStackTrace();
 		}
 		JoliArbreV2 arbre = new JoliArbreV2();

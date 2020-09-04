@@ -43,7 +43,7 @@ public class Options extends JDialog {
 
 	public Options(JFrame parent, String title, boolean modal, JoliArbreV2 joliArbreV2) {
 		super(parent, title, modal);
-		this.setSize(800, 400);
+		this.setSize(1000, 600);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		changeListener = new ChangeListener() {
@@ -118,8 +118,8 @@ public class Options extends JDialog {
 		nbBranchesMaxSlider.setMinorTickSpacing(1);
 		nbBranchesMaxSlider.setPaintTicks(true);
 		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
-		labelTable.put(new Integer(2), new JLabel("faible"));
-		labelTable.put(new Integer(6), new JLabel("Élevé"));
+		labelTable.put(2, new JLabel("faible"));
+		labelTable.put(6, new JLabel("Élevé"));
 		nbBranchesMaxSlider.setLabelTable(labelTable);
 		nbBranchesMaxSlider.setPaintLabels(true);
 		nbBranchesMaxPanel.setBorder(BorderFactory.createTitledBorder("Nombre de branches"));
@@ -128,7 +128,7 @@ public class Options extends JDialog {
 		// type
 		JPanel typePanel = new JPanel();
 		typePanel.setBackground(Color.white);
-		typePanel.setPreferredSize(new Dimension(170, 70));
+		typePanel.setPreferredSize(new Dimension(200, 70));
 		String[] types = { "Normal", "Cerisier", "Automne", "Hiver", "Couleur personnalisée" };
 		typeCombo = new JComboBox<String>(types);
 		typeCombo.setSelectedIndex(0);
@@ -171,8 +171,8 @@ public class Options extends JDialog {
 		niveauAutomneSlider.setMinorTickSpacing(1);
 		niveauAutomneSlider.setPaintTicks(true);
 		labelTable = new Hashtable<Integer, JLabel>();
-		labelTable.put(new Integer(1), new JLabel("faible"));
-		labelTable.put(new Integer(9), new JLabel("Élevée"));
+		labelTable.put(1, new JLabel("faible"));
+		labelTable.put(9, new JLabel("Élevée"));
 		niveauAutomneSlider.setLabelTable(labelTable);
 		niveauAutomneSlider.setPaintLabels(true);
 		niveauAutomnePanel.setBorder(BorderFactory.createTitledBorder("Perte des feuilles"));
@@ -188,8 +188,8 @@ public class Options extends JDialog {
 		animationSlider.setMinorTickSpacing(5);
 		animationSlider.setPaintTicks(true);
 		labelTable = new Hashtable<Integer, JLabel>();
-		labelTable.put(new Integer(0), new JLabel("Lente"));
-		labelTable.put(new Integer(100), new JLabel("Instantanée"));
+		labelTable.put(0, new JLabel("Lente"));
+		labelTable.put(100, new JLabel("Instantanée"));
 		animationSlider.setLabelTable(labelTable);
 		animationSlider.setPaintLabels(true);
 		animationPanel.setBorder(BorderFactory.createTitledBorder("Vitesse d'animation"));
@@ -205,8 +205,8 @@ public class Options extends JDialog {
 		epaisseurSlider.setMinorTickSpacing(1);
 		epaisseurSlider.setPaintTicks(true);
 		labelTable = new Hashtable<Integer, JLabel>();
-		labelTable.put(new Integer(1), new JLabel("Normale"));
-		labelTable.put(new Integer(5), new JLabel("Élevée"));
+		labelTable.put(1, new JLabel("Normale"));
+		labelTable.put(5, new JLabel("Élevée"));
 		epaisseurSlider.setLabelTable(labelTable);
 		epaisseurSlider.setPaintLabels(true);
 		epaisseurPanel.setBorder(BorderFactory.createTitledBorder("Densité de l'arbre"));
@@ -222,8 +222,8 @@ public class Options extends JDialog {
 		radiusBranchesSlider.setMinorTickSpacing(5);
 		radiusBranchesSlider.setPaintTicks(true);
 		labelTable = new Hashtable<Integer, JLabel>();
-		labelTable.put(new Integer(5), new JLabel("Petite"));
-		labelTable.put(new Integer(50), new JLabel("Énorme"));
+		labelTable.put(5, new JLabel("Petite"));
+		labelTable.put(50, new JLabel("Énorme"));
 		radiusBranchesSlider.setLabelTable(labelTable);
 		radiusBranchesSlider.setPaintLabels(true);
 		radiusBranchesPanel.setBorder(BorderFactory.createTitledBorder("Taille des branches"));
@@ -239,8 +239,8 @@ public class Options extends JDialog {
 		radiusFeuillesSlider.setMinorTickSpacing(2);
 		radiusFeuillesSlider.setPaintTicks(true);
 		labelTable = new Hashtable<Integer, JLabel>();
-		labelTable.put(new Integer(10), new JLabel("Petite"));
-		labelTable.put(new Integer(30), new JLabel("Énorme"));
+		labelTable.put(10, new JLabel("Petite"));
+		labelTable.put(30, new JLabel("Énorme"));
 		radiusFeuillesSlider.setLabelTable(labelTable);
 		radiusFeuillesSlider.setPaintLabels(true);
 		radiusFeuillesPanel.setBorder(BorderFactory.createTitledBorder("Taille des feuilles"));
@@ -302,6 +302,7 @@ public class Options extends JDialog {
 		l3.setBackground(Color.white);
 		l4.setBackground(Color.white);
 		content.setBackground(Color.white);
+
 		l1.add(profondeurPanel);
 		l1.add(nbBranchesMaxPanel);
 		l1.add(nbArbresPanel);

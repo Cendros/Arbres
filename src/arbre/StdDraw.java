@@ -23,6 +23,7 @@ package arbre;
  *************************************************************************/
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -98,8 +99,8 @@ public final class StdDraw implements ActionListener {
 
 	// default canvas size is DEFAULT_SIZE-by-DEFAULT_SIZE
 	private static final int DEFAULT_SIZE = 512;
-	private static int width = 900;
-	private static int height = 900;
+	private static int width = 100;
+	private static int height = 100;
 
 	// default pen radius
 	private static final double DEFAULT_PEN_RADIUS = 0.002;
@@ -134,14 +135,15 @@ public final class StdDraw implements ActionListener {
 
 	// static initializer
 	static {
-		init();
+		setCanvasSize();
 	}
 
 	/**
 	 * Set the window size to the default size 512-by-512 pixels.
 	 */
 	public static void setCanvasSize() {
-		setCanvasSize(1800, 1200);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setCanvasSize((int) screenSize.getHeight(), (int) screenSize.getHeight() - 100);
 	}
 
 	/**
