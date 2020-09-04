@@ -30,7 +30,7 @@ public class Options extends JDialog {
 	private JComboBox<String> typeCombo, typeFeuillesCombo;
 	private JColorChooser couleurChooser;
 	private JSlider profondeurSlider, nbBranchesMaxSlider, epaisseurSlider, radiusBranchesSlider, radiusFeuillesSlider,
-			niveauAutomneSlider;
+			niveauAutomneSlider, animationSlider;
 	private JTextField nbArbresField;
 	private ChangeListener changeListener;
 	private PropertyChangeListener propertyChangeListener;
@@ -50,14 +50,12 @@ public class Options extends JDialog {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				estimerBranches();
 			}
 		};
 		propertyChangeListener = new PropertyChangeListener() {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				estimerBranches();
 			}
 		};
 		actionListener = new ActionListener() {
@@ -83,23 +81,6 @@ public class Options extends JDialog {
 
 	protected void changeSize(int x, int y) {
 		this.setSize(x, y);
-	}
-
-	protected void estimerBranches() {
-		double moyenne = (JoliArbreV2.nbBranchesMin + nbBranchesMaxSlider.getValue()) / 2.0;
-		double pourcentage = 0.25 * profondeurSlider.getValue() / 2;
-		pourcentage = pourcentage > 1.0 ? 1 : pourcentage;
-		estimationBranche = (int) ((Math.pow(moyenne, profondeurSlider.getValue() - 1)) * pourcentage);
-		estimationFeuilles = (int) ((Math.pow(moyenne, profondeurSlider.getValue() - 2)));
-		estimationBranche *= pourcentage;
-		estimationBranche *= pourcentage;
-		String nbArbres = nbArbresField.getText();
-		int nbArbre = nbArbres.matches("^\\d{1,}$") || nbArbres.equals("0") ? Integer.parseInt(nbArbres) : 1;
-		estimationBranche *= Math.pow(nbArbre, 2);
-		estimationFeuilles *= Math.pow(nbArbre, 2);
-		estimationBranche *= epaisseurSlider.getValue();
-		estimationFeuilles *= epaisseurSlider.getValue();
-		System.out.println("Branches : " + estimationBranche + " Feuilles : " + estimationFeuilles);
 	}
 
 	private void initComponent() {
@@ -197,6 +178,23 @@ public class Options extends JDialog {
 		niveauAutomnePanel.setBorder(BorderFactory.createTitledBorder("Perte des feuilles"));
 		niveauAutomnePanel.add(niveauAutomneSlider);
 
+		// animation
+		JPanel animationPanel = new JPanel();
+		animationPanel.setBackground(Color.white);
+		animationPanel.setPreferredSize(new Dimension(230, 80));
+		animationSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+		animationSlider.addChangeListener(changeListener);
+		animationSlider.setMajorTickSpacing(10);
+		animationSlider.setMinorTickSpacing(5);
+		animationSlider.setPaintTicks(true);
+		labelTable = new Hashtable<Integer, JLabel>();
+		labelTable.put(new Integer(0), new JLabel("Lente"));
+		labelTable.put(new Integer(100), new JLabel("Instantanée"));
+		animationSlider.setLabelTable(labelTable);
+		animationSlider.setPaintLabels(true);
+		animationPanel.setBorder(BorderFactory.createTitledBorder("Vitesse d'animation"));
+		animationPanel.add(animationSlider);
+
 		// epaisseur
 		JPanel epaisseurPanel = new JPanel();
 		epaisseurPanel.setBackground(Color.white);
@@ -270,6 +268,7 @@ public class Options extends JDialog {
 				JoliArbreV2.superposition = epaisseurSlider.getValue();
 				JoliArbreV2.radiusInit = radiusBranchesSlider.getValue() / 100.0;
 				JoliArbreV2.couleurFeuilles = couleurChooser.getColor();
+				Turtle.animation = animationSlider.getValue() / 100.0;
 				setVisible(false);
 				ok = true;
 			}
@@ -286,6 +285,7 @@ public class Options extends JDialog {
 				typeFeuillesCombo.setSelectedIndex(0);
 				couleurChooser.setColor(new Color(34, 177, 76));
 				niveauAutomneSlider.setValue(2);
+				animationSlider.setValue(100);
 				epaisseurSlider.setValue(1);
 				radiusBranchesSlider.setValue(20);
 				radiusFeuillesSlider.setValue(15);
@@ -308,6 +308,7 @@ public class Options extends JDialog {
 		l2.add(typeFeuillesPanel);
 		l2.add(typePanel);
 		l2.add(niveauAutomnePanel);
+		l2.add(animationPanel);
 		niveauAutomnePanel.setVisible(false);
 		l3.add(epaisseurPanel);
 		l3.add(radiusBranchesPanel);

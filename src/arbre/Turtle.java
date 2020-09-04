@@ -16,6 +16,8 @@ import java.util.Random;
 
 /** Allows for drawing with a simple Turtle */
 public class Turtle {
+	protected static double animation;
+	private Random random;
 	private double x, y, xTronc, yTronc; // turtle is at (x, y)
 	private double angle; // facing this many degrees counterclockwise from the x-axis
 
@@ -33,6 +35,7 @@ public class Turtle {
 		xTronc = x0;
 		yTronc = y0;
 		angle = a0;
+		random = new Random();
 	}
 
 	/**
@@ -55,6 +58,8 @@ public class Turtle {
 		x += step * Math.cos(Math.toRadians(angle));
 		y += step * Math.sin(Math.toRadians(angle));
 		StdDraw.line(oldx, oldy, x, y);
+
+		checkDraw();
 	}
 
 	/**
@@ -101,10 +106,14 @@ public class Turtle {
 	 */
 	public void circle(double r) {
 		StdDraw.circle(x, y, r);
+
+		checkDraw();
 	}
 
 	public void fillcircle(double r) {
 		StdDraw.filledCircle(x, y, r);
+
+		checkDraw();
 	}
 
 	/**
@@ -140,6 +149,13 @@ public class Turtle {
 		x = x / StdDraw.getWidth() + x0;
 		y = y / StdDraw.getHeight() + y0;
 		StdDraw.point(x, y);
+
+		checkDraw();
+	}
+
+	public void checkDraw() {
+		if (random.nextFloat() > animation)
+			draw();
 	}
 
 	public void draw() {
@@ -161,6 +177,8 @@ public class Turtle {
 			turnLeft(angle[i]);
 		}
 		StdDraw.filledPolygon(pointsX, pointY);
+
+		checkDraw();
 	}
 
 	public void particules(double tailleFeuille) {
@@ -174,6 +192,8 @@ public class Turtle {
 
 		}
 		this.setPenRadius(radius);
+
+		checkDraw();
 	}
 
 	public double getX() {
